@@ -1,5 +1,8 @@
 from app.database import Base, engine
-import app.models  # Ensure models are imported
+
+# import all the models
+import app.models.userModel  
+
 
 print("Dropping old tables...")
 Base.metadata.drop_all(engine)  # Deletes existing tables
