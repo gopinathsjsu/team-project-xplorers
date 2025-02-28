@@ -24,15 +24,6 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
-    # customer = relationship("Customer", back_populates="user", uselist=False)
-    # restaurant_manager = relationship("RestaurantManager", back_populates="user", uselist=False)
-    # admin = relationship("Admin", back_populates="user", uselist=False)
-
-
-# class User(Base):
-#     __tablename__ = "users"
-
-#     id = Column(Integer, primary_key=True, index=True)
-#     username = Column(String(30), unique=True, index=True)
-#     email = Column(String(50), unique=True, index=True)
-#     hashed_password = Column(String(255))
+    customer = relationship("Customer", back_populates="user", uselist=False)
+    restaurant_manager = relationship("RestaurantManager", back_populates="user", uselist=False)
+    admin = relationship("Admin", back_populates="user", uselist=False)

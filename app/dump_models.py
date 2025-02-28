@@ -37,11 +37,12 @@
 #     THAI = "thai"
 #     MEDITERRANEAN = "mediterranean"
 #     OTHER = "other"
-
+'''
 # class NotificationPreference(enum.Enum):
 #     EMAIL = "email"
 #     SMS = "sms"
 #     BOTH = "both"
+'''
 '''
 # class User(Base):
 #     __tablename__ = "users"
@@ -61,6 +62,7 @@
 #     restaurant_manager = relationship("RestaurantManager", back_populates="user", uselist=False)
 #     admin = relationship("Admin", back_populates="user", uselist=False)
 '''
+'''
 # class Customer(Base):
 #     __tablename__ = "customers"
 
@@ -72,7 +74,8 @@
 #     user = relationship("User", back_populates="customer")
 #     reservations = relationship("Reservation", back_populates="customer")
 #     reviews = relationship("Review", back_populates="customer")
-
+'''
+'''
 # class RestaurantManager(Base):
 #     __tablename__ = "restaurant_managers"
 
@@ -83,7 +86,8 @@
 #     # Relationships
 #     user = relationship("User", back_populates="restaurant_manager")
 #     restaurants = relationship("Restaurant", back_populates="manager")
-
+'''
+'''
 # class Admin(Base):
 #     __tablename__ = "admins"
 
@@ -92,7 +96,7 @@
 
 #     # Relationships
 #     user = relationship("User", back_populates="admin")
-
+'''
 # class Restaurant(Base):
 #     __tablename__ = "restaurants"
 

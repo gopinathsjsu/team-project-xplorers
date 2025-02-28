@@ -50,7 +50,6 @@
 #     first_name: str
 #     last_name: str
 #     role: UserRole
-'''
 # class CustomerBase(BaseModel):
 #     notification_preference: NotificationPreference = NotificationPreference.EMAIL
 
@@ -59,6 +58,7 @@
 
 # class AdminBase(BaseModel):
 #     pass
+'''
 
 # class RestaurantBase(BaseModel):
 #     name: str
@@ -111,16 +111,16 @@
 # # Create schemas (input for creating new items)
 # class UserCreate(UserBase):
 #     password: str = Field(..., min_length=8)
-
+'''
 # class CustomerCreate(CustomerBase):
 #     user: UserCreate
-
+''''''
 # class RestaurantManagerCreate(RestaurantManagerBase):
 #     user: UserCreate
-
+''''''
 # class AdminCreate(AdminBase):
 #     user: UserCreate
-
+'''
 # class RestaurantCreate(RestaurantBase):
 #     pass
 
@@ -150,16 +150,16 @@
 #     first_name: Optional[str] = None
 #     last_name: Optional[str] = None
 #     role: Optional[UserRole] = None
-'''
+''''''
 # class CustomerUpdate(BaseModel):
 #     notification_preference: Optional[NotificationPreference] = None
-
+''''''
 # class RestaurantManagerUpdate(BaseModel):
 #     approved_at: Optional[datetime] = None
-
+''''''
 # class AdminUpdate(BaseModel):
 #     pass
-
+'''
 # class RestaurantUpdate(BaseModel):
 #     name: Optional[str] = None
 #     description: Optional[str] = None
@@ -220,7 +220,7 @@
 
 #     class Config:
 #         orm_mode = True
-'''
+''''''
 # class CustomerResponse(CustomerBase):
 #     customer_id: int
 #     user_id: int
@@ -228,7 +228,7 @@
 
 #     class Config:
 #         orm_mode = True
-
+''''''
 # class RestaurantManagerResponse(RestaurantManagerBase):
 #     manager_id: int
 #     user_id: int
@@ -237,7 +237,7 @@
 
 #     class Config:
 #         orm_mode = True
-
+''''''
 # class AdminResponse(AdminBase):
 #     admin_id: int
 #     user_id: int
@@ -245,7 +245,7 @@
 
 #     class Config:
 #         orm_mode = True
-
+'''
 # class ReviewResponse(ReviewBase):
 #     review_id: int
 #     customer_id: int
@@ -319,14 +319,14 @@
 
 #     class Config:
 #         orm_mode = True
-
+'''
 # class CustomerDetailResponse(CustomerResponse):
 #     reservations: List[ReservationResponse] = []
 #     reviews: List[ReviewResponse] = []
 
 #     class Config:
 #         orm_mode = True
-
+'''
 # # Search and filter schemas
 # class RestaurantSearch(BaseModel):
 #     date: datetime
