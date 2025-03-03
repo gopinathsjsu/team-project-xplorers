@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from app.database import Base
 from datetime import datetime
 import enum
+from app.models import CustomerModel, RestaurantManagerModel, AdminModel
 
 
 class UserRole(enum.Enum):

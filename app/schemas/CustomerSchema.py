@@ -24,11 +24,11 @@ class CustomerResponse(CustomerBase):
     user: UserResponse
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class CustomerDetailResponse(CustomerResponse):
     # reservations: List[ReservationResponse] = []
     # reviews: List[ReviewResponse] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
