@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel
+from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel, RestaurantModel
 from passlib.context import CryptContext
-from app.schemas import UserSchema
+from app.schemas import UserSchema, RestaurantSchema
 from app.models.UserModel import UserRole
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -51,3 +51,24 @@ def create_user(db: Session, user: UserSchema.UserCreate):
 
 def get_user(db: Session, user_id: int):
     return db.query(UserModel.User).filter(UserModel.User.user_id == user_id).first()
+
+
+def create_restaurant(db: Session, restaurant: RestaurantSchema.RestaurantCreate, manager_id: int):
+    db_restaurant = RestaurantModel.Restaurant(
+        manager_id=manager_id,
+        name=restaurant.name,
+        description=restaurant.description,
+        address_line1=restaurant.address_line1,
+        address_line2=restaurant.address_line2,
+        city=restaurant.city,
+        state=restaurant.state,
+        zip_code=restaurant.zip_code,
+        phone_number=restaurant.phone_number,
+        email=restaurant.email,
+        cuisine_type=restaurant.cuisine_type,
+        cost_rating=restaurant.cost_rating
+    )
+    db.add(db_restaurant)
+    db.commit()
+    db.refresh(db_restaurant)
+    return db_restaurant

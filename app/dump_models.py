@@ -26,7 +26,7 @@
 #     SATURDAY = "saturday"
 #     SUNDAY = "sunday"
 
-# class CuisineType(enum.Enum):
+'''# class CuisineType(enum.Enum):
 #     ITALIAN = "italian"
 #     CHINESE = "chinese"
 #     INDIAN = "indian"
@@ -36,7 +36,7 @@
 #     AMERICAN = "american"
 #     THAI = "thai"
 #     MEDITERRANEAN = "mediterranean"
-#     OTHER = "other"
+#     OTHER = "other"'''
 '''
 # class NotificationPreference(enum.Enum):
 #     EMAIL = "email"
@@ -97,7 +97,7 @@
 #     # Relationships
 #     user = relationship("User", back_populates="admin")
 '''
-# class Restaurant(Base):
+'''# class Restaurant(Base):
 #     __tablename__ = "restaurants"
 
 #     restaurant_id = Column(Integer, primary_key=True, index=True)
@@ -127,7 +127,7 @@
 #     reservation_slots = relationship("ReservationSlot", back_populates="restaurant")
 #     reservations = relationship("Reservation", back_populates="restaurant")
 #     reviews = relationship("Review", back_populates="restaurant")
-
+'''
 # class RestaurantPhoto(Base):
 #     __tablename__ = "restaurant_photos"
 

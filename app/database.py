@@ -9,7 +9,7 @@ load_dotenv()
 # logging.basicConfig()
 # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
-DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:xplorers@34.46.187.244:3306/bookTable")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
