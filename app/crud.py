@@ -52,7 +52,6 @@ def create_user(db: Session, user: UserSchema.UserCreate):
 def get_user(db: Session, user_id: int):
     return db.query(UserModel.User).filter(UserModel.User.user_id == user_id).first()
 
-
 def create_restaurant(db: Session, restaurant: RestaurantSchema.RestaurantCreate, manager_id: int):
     db_restaurant = RestaurantModel.Restaurant(
         manager_id=manager_id,
@@ -72,3 +71,9 @@ def create_restaurant(db: Session, restaurant: RestaurantSchema.RestaurantCreate
     db.commit()
     db.refresh(db_restaurant)
     return db_restaurant
+
+def get_all_restaurants(db: Session):
+    return db.query(RestaurantModel.Restaurant).all()
+
+def get_restaurants_by_manager(db: Session, manager_id: int):
+    return db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.manager_id == manager_id).all()
