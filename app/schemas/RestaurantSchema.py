@@ -46,6 +46,9 @@ class RestaurantUpdate(BaseModel):
     is_approved: Optional[bool] = None
     approved_at: Optional[datetime] = None
 
+    class Config:
+        from_attributes = True
+
 class RestaurantResponse(RestaurantBase):
     restaurant_id: int
     manager_id: int

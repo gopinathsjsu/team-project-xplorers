@@ -77,3 +77,36 @@ def get_all_restaurants(db: Session):
 
 def get_restaurants_by_manager(db: Session, manager_id: int):
     return db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.manager_id == manager_id).all()
+
+def get_restaurant_by_id(db: Session, restaurant_id: int):
+    return db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id).first()
+
+def delete_restaurant(db: Session, restaurant_id: int):
+    restaurant = get_restaurant_by_id(db, restaurant_id)
+    if restaurant:
+        db.delete(restaurant)
+        db.commit()
+
+def get_restaurant_by_id_and_manager(db: Session, restaurant_id: int, user_id: int):
+    return db.query(RestaurantModel.Restaurant).join(RestaurantManagerModel.RestaurantManager).filter(
+        RestaurantModel.Restaurant.restaurant_id == restaurant_id,
+        RestaurantManagerModel.RestaurantManager.user_id == user_id
+    ).first()
+
+def update_restaurant(db: Session, restaurant_id: int, restaurant_update: RestaurantSchema.RestaurantUpdate):
+    restaurant = db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id).first()
+    if not restaurant:
+        return None
+
+    for key, value in restaurant_update.dict(exclude_unset=True).items():
+        setattr(restaurant, key, value)
+
+    db.commit()
+    db.refresh(restaurant)
+    return restaurant
+
+def delete_restaurant_manager(db: Session, restaurant_id: int):
+    restaurant = db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id).first()
+    if restaurant:
+        db.delete(restaurant)
+        db.commit()
