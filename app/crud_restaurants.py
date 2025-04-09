@@ -1,10 +1,8 @@
 from sqlalchemy.orm import Session
-from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel, RestaurantModel
+from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel, RestaurantModel, TableModel
 from passlib.context import CryptContext
-from app.models.OperatingHoursModel import OperatingHours
 from app.schemas import UserSchema, RestaurantSchema
 from app.models.UserModel import UserRole
-from app.schemas.OperatingHoursSchema import OperatingHoursCreate
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
