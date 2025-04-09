@@ -17,14 +17,14 @@
 #     CANCELLED = "cancelled"
 #     COMPLETED = "completed"
 
-# class DayOfWeek(enum.Enum):
+'''# class DayOfWeek(enum.Enum):
 #     MONDAY = "monday"
 #     TUESDAY = "tuesday"
 #     WEDNESDAY = "wednesday"
 #     THURSDAY = "thursday"
 #     FRIDAY = "friday"
 #     SATURDAY = "saturday"
-#     SUNDAY = "sunday"
+#     SUNDAY = "sunday"'''
 
 '''# class CuisineType(enum.Enum):
 #     ITALIAN = "italian"
@@ -140,7 +140,7 @@
 
 #     # Relationships
 #     restaurant = relationship("Restaurant", back_populates="photos")
-
+'''
 # class OperatingHours(Base):
 #     __tablename__ = "operating_hours"
 
@@ -151,7 +151,7 @@
 #     closing_time = Column(Time, nullable=False)
 
 #     # Relationships
-#     restaurant = relationship("Restaurant", back_populates="operating_hours")
+#     restaurant = relationship("Restaurant", back_populates="operating_hours")'''
 
 # class Table(Base):
 #     __tablename__ = "tables"

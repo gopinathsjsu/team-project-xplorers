@@ -15,6 +15,15 @@ class CuisineType(str, Enum):
     MEDITERRANEAN = "mediterranean"
     OTHER = "other"
 
+class DayOfWeek(str,Enum):
+    MONDAY = "monday"
+    TUESDAY = "tuesday"
+    WEDNESDAY = "wednesday"
+    THURSDAY = "thursday"
+    FRIDAY = "friday"
+    SATURDAY = "saturday"
+    SUNDAY = "sunday"
+
 class RestaurantBase(BaseModel):
     name: str
     description: Optional[str] = None
@@ -49,7 +58,13 @@ class RestaurantUpdate(BaseModel):
     class Config:
         from_attributes = True
 
-class RestaurantResponse(RestaurantBase):
+
+class OperatingHoursResponse(BaseModel):
+    day_of_week: DayOfWeek
+    opening_time: time
+    closing_time: time
+
+class RestaurantResponse(RestaurantBase,OperatingHoursResponse):
     restaurant_id: int
     manager_id: int
     avg_rating: float
@@ -58,8 +73,8 @@ class RestaurantResponse(RestaurantBase):
     created_at: datetime
     updated_at: datetime
     # photos: List[RestaurantPhotoResponse] = []
-    # operating_hours: List[OperatingHoursResponse] = []
-
+    operating_hours: List[OperatingHoursResponse] = []
+    
     class Config:
         from_attributes = True
 
@@ -80,3 +95,4 @@ class RestaurantSearch(BaseModel):
     cuisine_type: Optional[CuisineType] = None
     min_rating: Optional[float] = Field(None, ge=1, le=5)
     max_cost_rating: Optional[int] = Field(None, ge=1, le=5)
+

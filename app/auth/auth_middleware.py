@@ -10,6 +10,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
         self.security = HTTPBearer()
 
     async def dispatch(self, request: Request, call_next):
+        if request.url.path.startswith(("/docs", "/redoc", "/openapi.json")):
+            return await call_next(request)
+    
         if request.url.path in ["/api/login", "/api/register"]:
             response = await call_next(request)
             return response

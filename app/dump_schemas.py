@@ -16,14 +16,14 @@
 #     CANCELLED = "cancelled"
 #     COMPLETED = "completed"
 
-# class DayOfWeek(str, Enum):
+'''# class DayOfWeek(str, Enum):
 #     MONDAY = "monday"
 #     TUESDAY = "tuesday"
 #     WEDNESDAY = "wednesday"
 #     THURSDAY = "thursday"
 #     FRIDAY = "friday"
 #     SATURDAY = "saturday"
-#     SUNDAY = "sunday"
+#     SUNDAY = "sunday"'''
 
 '''# class CuisineType(str, Enum):
 #     ITALIAN = "italian"
@@ -78,7 +78,7 @@
 #     caption: Optional[str] = None
 #     display_order: int = 0
 
-# class OperatingHoursBase(BaseModel):
+'''# class OperatingHoursBase(BaseModel):
 #     day_of_week: DayOfWeek
 #     opening_time: time
 #     closing_time: time
@@ -87,7 +87,7 @@
 #     def closing_after_opening(cls, v, values):
 #         if 'opening_time' in values and v <= values['opening_time']:
 #             raise ValueError('closing_time must be after opening_time')
-#         return v
+#         return v'''
 
 # class TableBase(BaseModel):
 #     capacity: int = Field(..., gt=0)

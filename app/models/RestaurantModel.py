@@ -3,7 +3,7 @@ import enum
 from sqlalchemy import Boolean, Column, DateTime, Enum, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
-from app.models import RestaurantManagerModel
+from app.models import RestaurantManagerModel, OperatingHoursModel
 
 class CuisineType(enum.Enum):
     ITALIAN = "italian"
@@ -42,7 +42,7 @@ class Restaurant(Base):
     # Relationships
     manager = relationship("RestaurantManager", back_populates="restaurants")
     # photos = relationship("RestaurantPhoto", back_populates="restaurant")
-    # operating_hours = relationship("OperatingHours", back_populates="restaurant")
+    operating_hours = relationship("OperatingHours", back_populates="restaurants")
     # tables = relationship("Table", back_populates="restaurant")
     # reservation_slots = relationship("ReservationSlot", back_populates="restaurant")
     # reservations = relationship("Reservation", back_populates="restaurant")
