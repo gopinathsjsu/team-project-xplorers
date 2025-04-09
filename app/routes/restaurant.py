@@ -6,6 +6,7 @@ from app.models import RestaurantManagerModel
 
 router = APIRouter()
 
+# Manager routes for restaurant management
 @router.post("/manager/restaurants", response_model=RestaurantSchema.RestaurantResponse)
 async def create_restaurant(
     restaurant: RestaurantSchema.RestaurantCreate,
@@ -43,7 +44,7 @@ async def get_restaurants_by_manager(
     restaurants = crud.get_restaurants_by_manager(db, manager_id=manager.manager_id)
     return restaurants
 
-@router.get("/manager/restaurants/{restaurant_id}", response_model=RestaurantSchema.RestaurantResponse)
+@router.get("/manager/restaurants/{restaurant_id}", response_model=RestaurantSchema.RestaurantDetailResponse)
 async def get_restaurant_details(
     restaurant_id: int,
     request: Request,
@@ -96,6 +97,7 @@ async def delete_restaurant(
     crud.delete_restaurant_manager(db, restaurant_id)
     return {"detail": "Restaurant deleted successfully"}
 
+# Admin routes for restaurant management
 @router.get("/admin/restaurants", response_model=list[RestaurantSchema.RestaurantResponse])
 async def get_all_restaurants(
     request: Request,

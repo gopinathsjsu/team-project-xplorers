@@ -153,7 +153,7 @@
 #     # Relationships
 #     restaurant = relationship("Restaurant", back_populates="operating_hours")
 
-# class Table(Base):
+'''# class Table(Base):
 #     __tablename__ = "tables"
 
 #     table_id = Column(Integer, primary_key=True, index=True)
@@ -165,7 +165,7 @@
 #     # Relationships
 #     restaurant = relationship("Restaurant", back_populates="tables")
 #     reservations = relationship("Reservation", back_populates="table")
-
+'''
 # class ReservationSlot(Base):
 #     __tablename__ = "reservation_slots"
 

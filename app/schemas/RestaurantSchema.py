@@ -2,6 +2,7 @@ from enum import Enum
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime, time
+from app.schemas.TableSchema import TableResponse
 
 class CuisineType(str, Enum):
     ITALIAN = "italian"
@@ -64,7 +65,7 @@ class RestaurantResponse(RestaurantBase):
         from_attributes = True
 
 class RestaurantDetailResponse(RestaurantResponse):
-    # tables: List[TableResponse] = []
+    tables: List[TableResponse] = []
     # reviews: List[ReviewResponse] = []
 
     class Config:

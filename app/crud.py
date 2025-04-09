@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel, RestaurantModel
+from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel, RestaurantModel, TableModel
 from passlib.context import CryptContext
-from app.schemas import UserSchema, RestaurantSchema
+from app.schemas import UserSchema, RestaurantSchema, TableSchema
 from app.models.UserModel import UserRole
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

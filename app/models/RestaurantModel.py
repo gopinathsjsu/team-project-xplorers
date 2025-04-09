@@ -43,7 +43,7 @@ class Restaurant(Base):
     manager = relationship("RestaurantManager", back_populates="restaurants")
     # photos = relationship("RestaurantPhoto", back_populates="restaurant")
     # operating_hours = relationship("OperatingHours", back_populates="restaurant")
-    # tables = relationship("Table", back_populates="restaurant")
+    tables = relationship("Table", back_populates="restaurant")
     # reservation_slots = relationship("ReservationSlot", back_populates="restaurant")
     # reservations = relationship("Reservation", back_populates="restaurant")
     # reviews = relationship("Review", back_populates="restaurant")
