@@ -89,11 +89,11 @@
 #             raise ValueError('closing_time must be after opening_time')
 #         return v"""
 
-'''# class TableBase(BaseModel):
+"""# class TableBase(BaseModel):
 #     capacity: int = Field(..., gt=0)
 #     table_number: str
 #     is_active: bool = True
-'''
+"""
 # class ReservationSlotBase(BaseModel):
 #     slot_time: datetime
 #     available_tables: int = Field(..., ge=0)
@@ -130,9 +130,9 @@
 # class OperatingHoursCreate(OperatingHoursBase):
 #     restaurant_id: int
 
-'''# class TableCreate(TableBase):
+"""# class TableCreate(TableBase):
 #     restaurant_id: int
-'''
+"""
 # class ReservationSlotCreate(ReservationSlotBase):
 #     restaurant_id: int
 
@@ -190,11 +190,11 @@
 #             raise ValueError('closing_time must be after opening_time')
 #         return v
 
-'''# class TableUpdate(BaseModel):
+"""# class TableUpdate(BaseModel):
 #     capacity: Optional[int] = Field(None, gt=0)
 #     table_number: Optional[str] = None
 #     is_active: Optional[bool] = None
-'''
+"""
 # class ReservationSlotUpdate(BaseModel):
 #     slot_time: Optional[datetime] = None
 #     available_tables: Optional[int] = Field(None, ge=0)
@@ -271,13 +271,13 @@
 #     class Config:
 #         from_attributes = True
 
-'''# class TableResponse(TableBase):
+"""# class TableResponse(TableBase):
 #     table_id: int
 #     restaurant_id: int
 
 #     class Config:
 #         from_attributes = True
-'''
+"""
 # class ReservationSlotResponse(ReservationSlotBase):
 #     slot_id: int
 #     restaurant_id: int

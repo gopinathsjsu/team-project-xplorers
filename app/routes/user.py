@@ -5,8 +5,9 @@ from fastapi.security import OAuth2PasswordRequestForm
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from app import crud_restaurants, database
+from app import database
 from app.auth.jwt_utils import create_access_token
+from app.models import AdminModel, CustomerModel, RestaurantManagerModel, UserModel
 from app.schemas import UserSchema
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -19,7 +20,13 @@ async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(database.get_db),
 ):
-    user = crud_restaurants.get_user_by_email(db, form_data.username)
+    # Inline query to retrieve the user by email (using the username field)
+    user = (
+        db.query(UserModel.User)
+        .filter(UserModel.User.email == form_data.username)
+        .first()
+    )
+    # Verify password using the password context
     if not user or not pwd_context.verify(form_data.password, user.password_hash):
         raise HTTPException(status_code=400, detail="Invalid credentials")
 
@@ -30,16 +37,59 @@ async def login(
 
 
 @router.post("/register", response_model=UserSchema.UserResponse)
-def create_user(user: UserSchema.UserCreate, db: Session = Depends(database.get_db)):
-    db_user = crud_restaurants.get_user_by_email(db, user.email)
-    if db_user:
+def register_user(user: UserSchema.UserCreate, db: Session = Depends(database.get_db)):
+    # Check if a user with the same email already exists
+    existing_user = (
+        db.query(UserModel.User).filter(UserModel.User.email == user.email).first()
+    )
+    if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    return crud_restaurants.create_user(db, user)
+
+    # Hash the provided password
+    hashed_password = pwd_context.hash(user.password)
+    # Create a new User instance with the hashed password
+    new_user = UserModel.User(
+        email=user.email,
+        password_hash=hashed_password,
+        phone_number=user.phone_number,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        role=user.role,
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    # Create an entry in the respective table based on the user's role
+    if user.role.name == "CUSTOMER":  # or use UserRole.CUSTOMER.name if imported
+        new_customer = CustomerModel.Customer(
+            user_id=new_user.user_id,
+            notification_preference=CustomerModel.NotificationPreference.EMAIL,  # default value
+        )
+        db.add(new_customer)
+        db.commit()
+        db.refresh(new_customer)
+    elif user.role.name == "ADMIN":  # or UserRole.ADMIN.name
+        new_admin = AdminModel.Admin(user_id=new_user.user_id)
+        db.add(new_admin)
+        db.commit()
+        db.refresh(new_admin)
+    elif user.role.name == "RESTAURANT_MANAGER":  # or UserRole.RESTAURANT_MANAGER.name
+        new_manager = RestaurantManagerModel.RestaurantManager(
+            user_id=new_user.user_id,
+            approved_at=None,  # default value
+        )
+        db.add(new_manager)
+        db.commit()
+        db.refresh(new_manager)
+
+    return new_user
 
 
 @router.get("/users/{user_id}", response_model=UserSchema.UserResponse)
-def get_user(user_id: int, db: Session = Depends(database.get_db)):
-    db_user = crud_restaurants.get_user(db, user_id=user_id)
+def get_user_by_id(user_id: int, db: Session = Depends(database.get_db)):
+    # Inline query to fetch the user by user_id
+    db_user = db.query(UserModel.User).filter(UserModel.User.user_id == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user

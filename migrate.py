@@ -8,8 +8,8 @@ from app.models import (
     ReservationSlotModel,
     RestaurantManagerModel,
     RestaurantModel,
+    TableModel,
     UserModel,
-    TableModel
 )
 
 print("Dropping old tables...")

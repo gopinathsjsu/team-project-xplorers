@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import List, Optional
+
 from pydantic import BaseModel
+
 from app.schemas.UserSchema import UserCreate, UserResponse
 
 

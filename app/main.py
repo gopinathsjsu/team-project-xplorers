@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from app.auth.auth_middleware import AuthMiddleware
-from app.routes import operatinghours, reservationslots, restaurant, user, table
+from app.routes import operatinghours, reservationslots, restaurant, table, user
 
 app = FastAPI(
     title="FastAPI Backend",
