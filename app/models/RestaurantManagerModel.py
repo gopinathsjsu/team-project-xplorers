@@ -1,7 +1,9 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer
-from app.database import Base
 from sqlalchemy.orm import relationship
-from app.models import UserModel, RestaurantModel
+
+from app.database import Base
+from app.models import RestaurantModel, UserModel
+
 
 class RestaurantManager(Base):
     __tablename__ = "restaurant_managers"

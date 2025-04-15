@@ -6,12 +6,12 @@
 # import enum
 
 # Base = declarative_base()
-'''
+"""
 # class UserRole(enum.Enum):
 #     CUSTOMER = "customer"
 #     RESTAURANT_MANAGER = "restaurant_manager"
 #     ADMIN = "admin"
-'''
+"""
 # class ReservationStatus(enum.Enum):
 #     CONFIRMED = "confirmed"
 #     CANCELLED = "cancelled"
@@ -37,13 +37,13 @@
 #     THAI = "thai"
 #     MEDITERRANEAN = "mediterranean"
 #     OTHER = "other"'''
-'''
+"""
 # class NotificationPreference(enum.Enum):
 #     EMAIL = "email"
 #     SMS = "sms"
 #     BOTH = "both"
-'''
-'''
+"""
+"""
 # class User(Base):
 #     __tablename__ = "users"
 
@@ -61,8 +61,8 @@
 #     customer = relationship("Customer", back_populates="user", uselist=False)
 #     restaurant_manager = relationship("RestaurantManager", back_populates="user", uselist=False)
 #     admin = relationship("Admin", back_populates="user", uselist=False)
-'''
-'''
+"""
+"""
 # class Customer(Base):
 #     __tablename__ = "customers"
 
@@ -74,8 +74,8 @@
 #     user = relationship("User", back_populates="customer")
 #     reservations = relationship("Reservation", back_populates="customer")
 #     reviews = relationship("Review", back_populates="customer")
-'''
-'''
+"""
+"""
 # class RestaurantManager(Base):
 #     __tablename__ = "restaurant_managers"
 
@@ -86,8 +86,8 @@
 #     # Relationships
 #     user = relationship("User", back_populates="restaurant_manager")
 #     restaurants = relationship("Restaurant", back_populates="manager")
-'''
-'''
+"""
+"""
 # class Admin(Base):
 #     __tablename__ = "admins"
 
@@ -96,8 +96,8 @@
 
 #     # Relationships
 #     user = relationship("User", back_populates="admin")
-'''
-'''# class Restaurant(Base):
+"""
+"""# class Restaurant(Base):
 #     __tablename__ = "restaurants"
 
 #     restaurant_id = Column(Integer, primary_key=True, index=True)
@@ -127,7 +127,7 @@
 #     reservation_slots = relationship("ReservationSlot", back_populates="restaurant")
 #     reservations = relationship("Reservation", back_populates="restaurant")
 #     reviews = relationship("Review", back_populates="restaurant")
-'''
+"""
 # class RestaurantPhoto(Base):
 #     __tablename__ = "restaurant_photos"
 
@@ -140,7 +140,7 @@
 
 #     # Relationships
 #     restaurant = relationship("Restaurant", back_populates="photos")
-'''
+"""
 # class OperatingHours(Base):
 #     __tablename__ = "operating_hours"
 
@@ -151,7 +151,7 @@
 #     closing_time = Column(Time, nullable=False)
 
 #     # Relationships
-#     restaurant = relationship("Restaurant", back_populates="operating_hours")'''
+#     restaurant = relationship("Restaurant", back_populates="operating_hours")"""
 
 '''# class Table(Base):
 #     __tablename__ = "tables"
@@ -166,7 +166,7 @@
 #     restaurant = relationship("Restaurant", back_populates="tables")
 #     reservations = relationship("Reservation", back_populates="table")
 '''
-# class ReservationSlot(Base):
+"""# class ReservationSlot(Base):
 #     __tablename__ = "reservation_slots"
 
 #     slot_id = Column(Integer, primary_key=True, index=True)
@@ -177,7 +177,7 @@
 
 #     # Relationships
 #     restaurant = relationship("Restaurant", back_populates="reservation_slots")
-
+"""
 # class Reservation(Base):
 #     __tablename__ = "reservations"
 

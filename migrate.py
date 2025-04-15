@@ -1,7 +1,16 @@
 from app.database import Base, engine
 
 # import all the models
-from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel, RestaurantModel, OperatingHoursModel, TableModel
+from app.models import (
+    AdminModel,
+    CustomerModel,
+    OperatingHoursModel,
+    ReservationSlotModel,
+    RestaurantManagerModel,
+    RestaurantModel,
+    UserModel,
+    TableModel
+)
 
 print("Dropping old tables...")
 # Base.metadata.drop_all(engine)  # Deletes existing tables

@@ -1,8 +1,10 @@
+from datetime import datetime, time
 from enum import Enum
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr, Field
-from datetime import datetime, time
 from app.schemas.TableSchema import TableResponse
+from app.schemas.OperatingHoursSchema import OperatingHoursResponse
+
 
 class CuisineType(str, Enum):
     ITALIAN = "italian"
@@ -16,14 +18,6 @@ class CuisineType(str, Enum):
     MEDITERRANEAN = "mediterranean"
     OTHER = "other"
 
-class DayOfWeek(str,Enum):
-    MONDAY = "monday"
-    TUESDAY = "tuesday"
-    WEDNESDAY = "wednesday"
-    THURSDAY = "thursday"
-    FRIDAY = "friday"
-    SATURDAY = "saturday"
-    SUNDAY = "sunday"
 
 class RestaurantBase(BaseModel):
     name: str
@@ -38,8 +32,10 @@ class RestaurantBase(BaseModel):
     cuisine_type: CuisineType
     cost_rating: int = Field(..., ge=1, le=5)
 
+
 class RestaurantCreate(RestaurantBase):
     pass
+
 
 class RestaurantUpdate(BaseModel):
     name: Optional[str] = None
@@ -60,12 +56,7 @@ class RestaurantUpdate(BaseModel):
         from_attributes = True
 
 
-class OperatingHoursResponse(BaseModel):
-    day_of_week: DayOfWeek
-    opening_time: time
-    closing_time: time
-
-class RestaurantResponse(RestaurantBase,OperatingHoursResponse):
+class RestaurantResponse(RestaurantBase):
     restaurant_id: int
     manager_id: int
     avg_rating: float
@@ -75,9 +66,10 @@ class RestaurantResponse(RestaurantBase,OperatingHoursResponse):
     updated_at: datetime
     # photos: List[RestaurantPhotoResponse] = []
     operating_hours: List[OperatingHoursResponse] = []
-    
+
     class Config:
         from_attributes = True
+
 
 class RestaurantDetailResponse(RestaurantResponse):
     tables: List[TableResponse] = []
@@ -85,6 +77,7 @@ class RestaurantDetailResponse(RestaurantResponse):
 
     class Config:
         from_attributes = True
+
 
 class RestaurantSearch(BaseModel):
     date: datetime
@@ -96,4 +89,3 @@ class RestaurantSearch(BaseModel):
     cuisine_type: Optional[CuisineType] = None
     min_rating: Optional[float] = Field(None, ge=1, le=5)
     max_cost_rating: Optional[int] = Field(None, ge=1, le=5)
-
