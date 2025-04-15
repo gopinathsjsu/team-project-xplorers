@@ -1,15 +1,24 @@
-from sqlalchemy.orm import Session
-from app.models import UserModel, CustomerModel, AdminModel, RestaurantManagerModel, RestaurantModel
 from passlib.context import CryptContext
+from sqlalchemy.orm import Session
+
+from app.models import (
+    AdminModel,
+    CustomerModel,
+    RestaurantManagerModel,
+    RestaurantModel,
+    UserModel,
+)
 from app.models.OperatingHoursModel import OperatingHours
-from app.schemas import UserSchema, RestaurantSchema
 from app.models.UserModel import UserRole
+from app.schemas import RestaurantSchema, UserSchema
 from app.schemas.OperatingHoursSchema import OperatingHoursCreate
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 def get_user_by_email(db: Session, email: str):
     return db.query(UserModel.User).filter(UserModel.User.email == email).first()
+
 
 def create_user(db: Session, user: UserSchema.UserCreate):
     hashed_password = pwd_context.hash(user.password)
@@ -19,7 +28,7 @@ def create_user(db: Session, user: UserSchema.UserCreate):
         phone_number=user.phone_number,
         first_name=user.first_name,
         last_name=user.last_name,
-        role=user.role
+        role=user.role,
     )
     db.add(db_user)
     db.commit()
@@ -28,22 +37,20 @@ def create_user(db: Session, user: UserSchema.UserCreate):
     if user.role.name == UserRole.CUSTOMER.name:
         db_customer = CustomerModel.Customer(
             user_id=db_user.user_id,
-            notification_preference=CustomerModel.NotificationPreference.EMAIL  # Default value
+            notification_preference=CustomerModel.NotificationPreference.EMAIL,  # Default value
         )
         db.add(db_customer)
         db.commit()
         db.refresh(db_customer)
     elif user.role.name == UserRole.ADMIN.name:
-        db_admin = AdminModel.Admin(
-            user_id=db_user.user_id
-        )
+        db_admin = AdminModel.Admin(user_id=db_user.user_id)
         db.add(db_admin)
         db.commit()
         db.refresh(db_admin)
     elif user.role.name == UserRole.RESTAURANT_MANAGER.name:
         db_manager = RestaurantManagerModel.RestaurantManager(
             user_id=db_user.user_id,
-            approved_at=None  # Default value, can be updated later
+            approved_at=None,  # Default value, can be updated later
         )
         db.add(db_manager)
         db.commit()
@@ -51,10 +58,14 @@ def create_user(db: Session, user: UserSchema.UserCreate):
 
     return db_user
 
+
 def get_user(db: Session, user_id: int):
     return db.query(UserModel.User).filter(UserModel.User.user_id == user_id).first()
 
-def create_restaurant(db: Session, restaurant: RestaurantSchema.RestaurantCreate, manager_id: int):
+
+def create_restaurant(
+    db: Session, restaurant: RestaurantSchema.RestaurantCreate, manager_id: int
+):
     db_restaurant = RestaurantModel.Restaurant(
         manager_id=manager_id,
         name=restaurant.name,
@@ -67,21 +78,33 @@ def create_restaurant(db: Session, restaurant: RestaurantSchema.RestaurantCreate
         phone_number=restaurant.phone_number,
         email=restaurant.email,
         cuisine_type=restaurant.cuisine_type,
-        cost_rating=restaurant.cost_rating
+        cost_rating=restaurant.cost_rating,
     )
     db.add(db_restaurant)
     db.commit()
     db.refresh(db_restaurant)
     return db_restaurant
 
+
 def get_all_restaurants(db: Session):
     return db.query(RestaurantModel.Restaurant).all()
 
+
 def get_restaurants_by_manager(db: Session, manager_id: int):
-    return db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.manager_id == manager_id).all()
+    return (
+        db.query(RestaurantModel.Restaurant)
+        .filter(RestaurantModel.Restaurant.manager_id == manager_id)
+        .all()
+    )
+
 
 def get_restaurant_by_id(db: Session, restaurant_id: int):
-    return db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id).first()
+    return (
+        db.query(RestaurantModel.Restaurant)
+        .filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id)
+        .first()
+    )
+
 
 def delete_restaurant(db: Session, restaurant_id: int):
     restaurant = get_restaurant_by_id(db, restaurant_id)
@@ -89,14 +112,29 @@ def delete_restaurant(db: Session, restaurant_id: int):
         db.delete(restaurant)
         db.commit()
 
-def get_restaurant_by_id_and_manager(db: Session, restaurant_id: int, user_id: int):
-    return db.query(RestaurantModel.Restaurant).join(RestaurantManagerModel.RestaurantManager).filter(
-        RestaurantModel.Restaurant.restaurant_id == restaurant_id,
-        RestaurantManagerModel.RestaurantManager.user_id == user_id
-    ).first()
 
-def update_restaurant(db: Session, restaurant_id: int, restaurant_update: RestaurantSchema.RestaurantUpdate):
-    restaurant = db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id).first()
+def get_restaurant_by_id_and_manager(db: Session, restaurant_id: int, user_id: int):
+    return (
+        db.query(RestaurantModel.Restaurant)
+        .join(RestaurantManagerModel.RestaurantManager)
+        .filter(
+            RestaurantModel.Restaurant.restaurant_id == restaurant_id,
+            RestaurantManagerModel.RestaurantManager.user_id == user_id,
+        )
+        .first()
+    )
+
+
+def update_restaurant(
+    db: Session,
+    restaurant_id: int,
+    restaurant_update: RestaurantSchema.RestaurantUpdate,
+):
+    restaurant = (
+        db.query(RestaurantModel.Restaurant)
+        .filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id)
+        .first()
+    )
     if not restaurant:
         return None
 
@@ -107,8 +145,13 @@ def update_restaurant(db: Session, restaurant_id: int, restaurant_update: Restau
     db.refresh(restaurant)
     return restaurant
 
+
 def delete_restaurant_manager(db: Session, restaurant_id: int):
-    restaurant = db.query(RestaurantModel.Restaurant).filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id).first()
+    restaurant = (
+        db.query(RestaurantModel.Restaurant)
+        .filter(RestaurantModel.Restaurant.restaurant_id == restaurant_id)
+        .first()
+    )
     if restaurant:
         db.delete(restaurant)
         db.commit()

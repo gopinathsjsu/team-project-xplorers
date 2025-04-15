@@ -1,15 +1,18 @@
-from sqlalchemy import Column, Integer, String, Enum, DateTime
-from sqlalchemy.orm import relationship
-from app.database import Base
-from datetime import datetime
 import enum
-from app.models import CustomerModel, RestaurantManagerModel, AdminModel
+from datetime import datetime
+
+from sqlalchemy import Column, DateTime, Enum, Integer, String
+from sqlalchemy.orm import relationship
+
+from app.database import Base
+from app.models import AdminModel, CustomerModel, RestaurantManagerModel
 
 
 class UserRole(enum.Enum):
     CUSTOMER = "customer"
     RESTAURANT_MANAGER = "restaurant_manager"
     ADMIN = "admin"
+
 
 class User(Base):
     __tablename__ = "users"
@@ -26,5 +29,7 @@ class User(Base):
 
     # Relationships
     customer = relationship("Customer", back_populates="user", uselist=False)
-    restaurant_manager = relationship("RestaurantManager", back_populates="user", uselist=False)
+    restaurant_manager = relationship(
+        "RestaurantManager", back_populates="user", uselist=False
+    )
     admin = relationship("Admin", back_populates="user", uselist=False)
