@@ -35,7 +35,7 @@ class CustomerResponse(CustomerBase):
 
 class CustomerDetailResponse(CustomerResponse):
     # reservations: List[ReservationResponse] = []
-    # reviews: List[ReviewResponse] = []
+    reviews: List[ReviewResponse] = []
 
     class Config:
         from_attributes = True

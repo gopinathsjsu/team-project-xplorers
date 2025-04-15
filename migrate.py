@@ -4,12 +4,13 @@ from app.database import Base, engine
 from app.models import (
     AdminModel,
     CustomerModel,
+    CustomerReviewModel,
     OperatingHoursModel,
     ReservationSlotModel,
     RestaurantManagerModel,
     RestaurantModel,
     TableModel,
-    UserModel,
+    UserModel
 )
 
 print("Dropping old tables...")

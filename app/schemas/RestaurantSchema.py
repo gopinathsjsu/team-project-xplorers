@@ -1,8 +1,14 @@
 from datetime import datetime, time
+from datetime import datetime, time
 from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, EmailStr, Field
+
+from app.schemas.CustomerReviewSchema import ReviewResponse
+from app.schemas.OperatingHoursSchema import OperatingHoursResponse
+from app.schemas.TableSchema import TableResponse
+
 
 from app.schemas.OperatingHoursSchema import OperatingHoursResponse
 from app.schemas.TableSchema import TableResponse
@@ -75,7 +81,8 @@ class RestaurantResponse(RestaurantBase):
 
 class RestaurantDetailResponse(RestaurantResponse):
     tables: List[TableResponse] = []
-    # reviews: List[ReviewResponse] = []
+    reviews: List[ReviewResponse] = []
+    tables: List[TableResponse] = []
 
     class Config:
         from_attributes = True

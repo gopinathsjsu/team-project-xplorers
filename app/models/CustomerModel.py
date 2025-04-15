@@ -25,4 +25,4 @@ class Customer(Base):
     # Relationships
     user = relationship("User", back_populates="customer")
     # reservations = relationship("Reservation", back_populates="customer")
-    # reviews = relationship("Review", back_populates="customer")
+    reviews = relationship("Review", back_populates="customer")

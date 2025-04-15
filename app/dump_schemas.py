@@ -264,12 +264,12 @@
 #     class Config:
 #         from_attributes = True
 
-# class OperatingHoursResponse(OperatingHoursBase):
+'''# class OperatingHoursResponse(OperatingHoursBase):
 #     hours_id: int
 #     restaurant_id: int
 
 #     class Config:
-#         from_attributes = True
+#         from_attributes = True'''
 
 """# class TableResponse(TableBase):
 #     table_id: int
