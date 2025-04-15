@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app import crud, database
+from app import crud_restaurants, database
 from app.schemas import TableSchema
 
 router = APIRouter()
@@ -18,12 +18,12 @@ async def add_table(
         raise HTTPException(status_code=403, detail="Not authorized to add tables to this restaurant")
 
     # Check if the restaurant exists and is managed by the current manager
-    restaurant = crud.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
+    restaurant = crud_restaurants.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found or not managed by you")
 
     # Add the new table
-    new_table = crud.create_table(db, table, restaurant_id)
+    new_table = create_table(db, table, restaurant_id)
     return new_table
 
 @router.get("/manager/restaurants/{restaurant_id}/tables", response_model=list[TableSchema.TableResponse])
@@ -37,12 +37,12 @@ async def get_tables(
         raise HTTPException(status_code=403, detail="Not authorized to view tables for this restaurant")
 
     # Check if the restaurant exists and is managed by the current manager
-    restaurant = crud.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
+    restaurant = crud_restaurants.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found or not managed by you")
 
     # Retrieve all tables for the restaurant
-    tables = crud.get_tables_by_restaurant(db, restaurant_id)
+    tables = get_tables_by_restaurant(db, restaurant_id)
     return tables
 
 @router.put("/manager/restaurants/{restaurant_id}/tables/{table_id}", response_model=TableSchema.TableResponse)
@@ -58,17 +58,17 @@ async def update_table(
         raise HTTPException(status_code=403, detail="Not authorized to update tables for this restaurant")
 
     # Check if the restaurant exists and is managed by the current manager
-    restaurant = crud.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
+    restaurant = crud_restaurants.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found or not managed by you")
 
     # Check if the table exists and belongs to the restaurant
-    table = crud.get_table_by_id_and_restaurant(db, table_id, restaurant_id)
+    table = get_table_by_id_and_restaurant(db, table_id, restaurant_id)
     if not table:
         raise HTTPException(status_code=404, detail="Table not found or does not belong to this restaurant")
 
     # Update the table details
-    updated_table = crud.update_table(db, table_id, table_update)
+    updated_table = update_table_db(db, table_id, table_update)
     return updated_table
 
 @router.delete("/manager/restaurants/{restaurant_id}/tables/{table_id}", status_code=204)
@@ -83,17 +83,17 @@ async def delete_table(
         raise HTTPException(status_code=403, detail="Not authorized to delete tables for this restaurant")
 
     # Check if the restaurant exists and is managed by the current manager
-    restaurant = crud.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
+    restaurant = crud_restaurants.get_restaurant_by_id_and_manager(db, restaurant_id, user["user_id"])
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found or not managed by you")
 
     # Check if the table exists and belongs to the restaurant
-    table = crud.get_table_by_id_and_restaurant(db, table_id, restaurant_id)
+    table = get_table_by_id_and_restaurant(db, table_id, restaurant_id)
     if not table:
         raise HTTPException(status_code=404, detail="Table not found or does not belong to this restaurant")
 
     # Delete or deactivate the table
-    crud.delete_table(db, table_id)
+    delete_table_db(db, table_id)
     return {"detail": "Table deleted successfully"}
 
 
@@ -120,7 +120,7 @@ def get_table_by_id_and_restaurant(db: Session, table_id: int, restaurant_id: in
         TableModel.Table.restaurant_id == restaurant_id
     ).first()
 
-def update_table(db: Session, table_id: int, table_update: TableSchema.TableUpdate):
+def update_table_db(db: Session, table_id: int, table_update: TableSchema.TableUpdate):
     table = db.query(TableModel.Table).filter(TableModel.Table.table_id == table_id).first()
     if not table:
         return None
@@ -132,7 +132,7 @@ def update_table(db: Session, table_id: int, table_update: TableSchema.TableUpda
     db.refresh(table)
     return table
 
-def delete_table(db: Session, table_id: int):
+def delete_table_db(db: Session, table_id: int):
     table = db.query(TableModel.Table).filter(TableModel.Table.table_id == table_id).first()
     if table:
         db.delete(table)
