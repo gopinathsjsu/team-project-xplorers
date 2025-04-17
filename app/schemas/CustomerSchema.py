@@ -3,6 +3,8 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
+from app.schemas.CustomerReviewSchema import ReviewResponse
+from app.schemas.ReservationSchema import ReservationResponse
 from app.schemas.UserSchema import UserCreate, UserResponse
 
 
@@ -34,7 +36,7 @@ class CustomerResponse(CustomerBase):
 
 
 class CustomerDetailResponse(CustomerResponse):
-    # reservations: List[ReservationResponse] = []
+    reservations: List[ReservationResponse] = []
     reviews: List[ReviewResponse] = []
 
     class Config:

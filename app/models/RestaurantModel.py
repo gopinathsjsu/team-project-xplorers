@@ -15,7 +15,13 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from app.database import Base
-from app.models import CustomerReviewModel, OperatingHoursModel, ReservationSlotModel, RestaurantManagerModel, TableModel
+from app.models import (
+    CustomerReviewModel,
+    OperatingHoursModel,
+    ReservationSlotModel,
+    RestaurantManagerModel,
+    TableModel,
+)
 
 
 class CuisineType(enum.Enum):
@@ -61,5 +67,5 @@ class Restaurant(Base):
     operating_hours = relationship("OperatingHours", back_populates="restaurant")
     tables = relationship("Table", back_populates="restaurant")
     reservation_slots = relationship("ReservationSlot", back_populates="restaurant")
-    # reservations = relationship("Reservation", back_populates="restaurant")
+    reservations = relationship("Reservation", back_populates="restaurant")
     reviews = relationship("Review", back_populates="restaurant")

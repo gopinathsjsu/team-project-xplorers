@@ -12,11 +12,11 @@
 #     RESTAURANT_MANAGER = "restaurant_manager"
 #     ADMIN = "admin"
 """
-# class ReservationStatus(enum.Enum):
+"""# class ReservationStatus(enum.Enum):
 #     CONFIRMED = "confirmed"
 #     CANCELLED = "cancelled"
 #     COMPLETED = "completed"
-
+"""
 '''# class DayOfWeek(enum.Enum):
 #     MONDAY = "monday"
 #     TUESDAY = "tuesday"
@@ -178,7 +178,7 @@
 #     # Relationships
 #     restaurant = relationship("Restaurant", back_populates="reservation_slots")
 """
-# class Reservation(Base):
+"""# class Reservation(Base):
 #     __tablename__ = "reservations"
 
 #     reservation_id = Column(Integer, primary_key=True, index=True)
@@ -197,8 +197,8 @@
 #     customer = relationship("Customer", back_populates="reservations")
 #     restaurant = relationship("Restaurant", back_populates="reservations")
 #     table = relationship("Table", back_populates="reservations")
-
-# class Review(Base):
+"""
+"""# class Review(Base):
 #     __tablename__ = "reviews"
 
 #     review_id = Column(Integer, primary_key=True, index=True)
@@ -212,3 +212,4 @@
 #     # Relationships
 #     customer = relationship("Customer", back_populates="reviews")
 #     restaurant = relationship("Restaurant", back_populates="reviews")
+"""

@@ -1,17 +1,23 @@
 from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
+
 from app.database import get_db
 from app.models.CustomerModel import Customer
-from app.models.RestaurantModel import Restaurant
 from app.models.CustomerReviewModel import Review
-from app.schemas.CustomerReviewSchema import ReviewBase, ReviewCreate, ReviewResponse, ReviewUpdate
+from app.models.RestaurantModel import Restaurant
+from app.schemas.CustomerReviewSchema import (
+    ReviewBase,
+    ReviewCreate,
+    ReviewResponse,
+    ReviewUpdate,
+)
 
 router = APIRouter()
-@router.post(
-    "/restaurants/{restaurant_id}/reviews",
-    response_model=ReviewResponse
-)
+
+
+@router.post("/restaurants/{restaurant_id}/reviews", response_model=ReviewResponse)
 async def add_restaurant_review(
     restaurant_id: int,
     review_data: ReviewBase,
@@ -21,9 +27,7 @@ async def add_restaurant_review(
     # Check that the user has a customer role.
     user = request.state.user
     if user["role"] != "customer":
-        raise HTTPException(
-            status_code=403, detail="Not authorized to create reviews"
-        )
+        raise HTTPException(status_code=403, detail="Not authorized to create reviews")
 
     # Retrieve the customer record based on the authenticated user's id.
     customer = db.query(Customer).filter(Customer.user_id == user["user_id"]).first()
@@ -32,9 +36,7 @@ async def add_restaurant_review(
 
     # Verify the restaurant exists.
     restaurant = (
-        db.query(Restaurant)
-        .filter(Restaurant.restaurant_id == restaurant_id)
-        .first()
+        db.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).first()
     )
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found")
@@ -44,7 +46,7 @@ async def add_restaurant_review(
         db.query(Review)
         .filter(
             Review.restaurant_id == restaurant_id,
-            Review.customer_id == customer.customer_id
+            Review.customer_id == customer.customer_id,
         )
         .first()
     )
@@ -67,17 +69,17 @@ async def add_restaurant_review(
 
     return new_review
 
+
 @router.get(
     "/restaurants/{restaurant_id}/reviews",
     response_model=List[ReviewResponse],
-    tags=["Reviews"]
+    tags=["Reviews"],
 )
-async def get_restaurant_reviews(
-    restaurant_id: int,
-    db: Session = Depends(get_db)
-):
+async def get_restaurant_reviews(restaurant_id: int, db: Session = Depends(get_db)):
     # Verify that the restaurant exists.
-    restaurant = db.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).first()
+    restaurant = (
+        db.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).first()
+    )
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found")
 
@@ -85,17 +87,16 @@ async def get_restaurant_reviews(
     reviews = db.query(Review).filter(Review.restaurant_id == restaurant_id).all()
     return reviews
 
+
 # PUT /api/restaurants/reviews/{review_id} - Update a review.
 @router.put(
-    "/restaurants/reviews/{review_id}",
-    response_model=ReviewResponse,
-    tags=["Reviews"]
+    "/restaurants/reviews/{review_id}", response_model=ReviewResponse, tags=["Reviews"]
 )
 async def update_review(
     review_id: int,
     review_update: ReviewUpdate,
     request: Request,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     # Check that the user is a customer.
     user = request.state.user
@@ -114,7 +115,9 @@ async def update_review(
 
     # Ensure the review belongs to the authenticated customer.
     if review.customer_id != customer.customer_id:
-        raise HTTPException(status_code=403, detail="Not authorized to update this review")
+        raise HTTPException(
+            status_code=403, detail="Not authorized to update this review"
+        )
 
     # Update review fields if provided in the payload.
     if review_update.rating is not None:
@@ -126,14 +129,11 @@ async def update_review(
     db.refresh(review)
     return review
 
+
 # DELETE /api/restaurants/reviews/{review_id} - Delete a review.
-@router.delete(
-    "/restaurants/reviews/{review_id}"
-)
+@router.delete("/restaurants/reviews/{review_id}")
 async def delete_review(
-    review_id: int,
-    request: Request,
-    db: Session = Depends(get_db)
+    review_id: int, request: Request, db: Session = Depends(get_db)
 ):
     # Check that the user is a customer.
     user = request.state.user
@@ -152,7 +152,9 @@ async def delete_review(
 
     # Check if the authenticated customer is the owner of the review.
     if review.customer_id != customer.customer_id:
-        raise HTTPException(status_code=403, detail="Not authorized to delete this review")
+        raise HTTPException(
+            status_code=403, detail="Not authorized to delete this review"
+        )
 
     db.delete(review)
     db.commit()

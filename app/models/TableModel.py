@@ -17,4 +17,4 @@ class Table(Base):
 
     # Relationships
     restaurant = relationship("Restaurant", back_populates="tables")
-    # reservations = relationship("Reservation", back_populates="table")
+    reservations = relationship("Reservation", back_populates="table")

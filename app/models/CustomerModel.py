@@ -5,6 +5,7 @@ from sqlalchemy import Column, Enum, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
 from app.database import Base
+from app.models.ReservationModel import Reservation
 
 
 class NotificationPreference(enum.Enum):
@@ -24,5 +25,5 @@ class Customer(Base):
 
     # Relationships
     user = relationship("User", back_populates="customer")
-    # reservations = relationship("Reservation", back_populates="customer")
+    reservations = relationship("Reservation", back_populates="customer")
     reviews = relationship("Review", back_populates="customer")

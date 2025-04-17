@@ -6,11 +6,12 @@ from app.models import (
     CustomerModel,
     CustomerReviewModel,
     OperatingHoursModel,
+    ReservationModel,
     ReservationSlotModel,
     RestaurantManagerModel,
     RestaurantModel,
     TableModel,
-    UserModel
+    UserModel,
 )
 
 print("Dropping old tables...")

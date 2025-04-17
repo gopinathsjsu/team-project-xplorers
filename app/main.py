@@ -1,7 +1,15 @@
 from fastapi import FastAPI
 
 from app.auth.auth_middleware import AuthMiddleware
-from app.routes import customerreviews, operatinghours, reservationslots, restaurant, table, user
+from app.routes import (
+    customerreviews,
+    operatinghours,
+    reservation,
+    reservationslots,
+    restaurant,
+    table,
+    user,
+)
 
 app = FastAPI(
     title="FastAPI Backend",
@@ -15,6 +23,7 @@ app.include_router(operatinghours.router, prefix="/api", tags=["Operating Hours"
 app.include_router(table.router, prefix="/api", tags=["Tables"])
 app.include_router(reservationslots.router, prefix="/api", tags=["Reservation Slots"])
 app.include_router(customerreviews.router, prefix="/api", tags=["Customer Reviews"])
+app.include_router(reservation.router, prefix="/api", tags=["Reservations"])
 
 if __name__ == "__main__":
     import uvicorn

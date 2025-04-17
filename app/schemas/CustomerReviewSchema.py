@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -7,12 +8,15 @@ class ReviewBase(BaseModel):
     rating: int = Field(..., ge=1, le=5)
     comment: Optional[str] = None
 
+
 class ReviewCreate(ReviewBase):
     restaurant_id: int
+
 
 class ReviewUpdate(BaseModel):
     rating: Optional[int] = Field(None, ge=1, le=5)
     comment: Optional[str] = None
+
 
 class ReviewResponse(ReviewBase):
     review_id: int
@@ -23,4 +27,3 @@ class ReviewResponse(ReviewBase):
 
     class Config:
         from_attributes = True
-

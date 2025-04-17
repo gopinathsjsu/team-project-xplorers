@@ -11,11 +11,11 @@
 #     RESTAURANT_MANAGER = "restaurant_manager"
 #     ADMIN = "admin"
 """
-# class ReservationStatus(str, Enum):
+"""# class ReservationStatus(str, Enum):
 #     CONFIRMED = "confirmed"
 #     CANCELLED = "cancelled"
 #     COMPLETED = "completed"
-
+"""
 '''# class DayOfWeek(str, Enum):
 #     MONDAY = "monday"
 #     TUESDAY = "tuesday"
@@ -94,23 +94,23 @@
 #     table_number: str
 #     is_active: bool = True
 """
-# class ReservationSlotBase(BaseModel):
+"""# class ReservationSlotBase(BaseModel):
 #     slot_time: datetime
 #     available_tables: int = Field(..., ge=0)
 #     is_active: bool = True
-
-# class ReservationBase(BaseModel):
+"""
+"""# class ReservationBase(BaseModel):
 #     reservation_time: datetime
 #     party_size: int = Field(..., gt=0)
 #     special_requests: Optional[str] = None
-
-# class ReviewBase(BaseModel):
+"""
+"""# class ReviewBase(BaseModel):
 #     rating: int = Field(..., ge=1, le=5)
 #     comment: Optional[str] = None
-
-# # Create schemas (input for creating new items)
+"""
+"""# # Create schemas (input for creating new items)
 # class UserCreate(UserBase):
-#     password: str = Field(..., min_length=8)
+#     password: str = Field(..., min_length=8)"""
 """
 # class CustomerCreate(CustomerBase):
 #     user: UserCreate
@@ -127,21 +127,21 @@
 # class RestaurantPhotoCreate(RestaurantPhotoBase):
 #     restaurant_id: int
 
-# class OperatingHoursCreate(OperatingHoursBase):
+"""# class OperatingHoursCreate(OperatingHoursBase):
 #     restaurant_id: int
-
+"""
 """# class TableCreate(TableBase):
 #     restaurant_id: int
 """
-# class ReservationSlotCreate(ReservationSlotBase):
+"""# class ReservationSlotCreate(ReservationSlotBase):
 #     restaurant_id: int
-
-# class ReservationCreate(ReservationBase):
+"""
+"""# class ReservationCreate(ReservationBase):
 #     restaurant_id: int
-
-# class ReviewCreate(ReviewBase):
+"""
+"""# class ReviewCreate(ReviewBase):
 #     restaurant_id: int
-
+"""
 # # Update schemas
 """
 # class UserUpdate(BaseModel):
@@ -200,13 +200,13 @@
 #     available_tables: Optional[int] = Field(None, ge=0)
 #     is_active: Optional[bool] = None
 
-# class ReservationUpdate(BaseModel):
+"""# class ReservationUpdate(BaseModel):
 #     reservation_time: Optional[datetime] = None
 #     party_size: Optional[int] = Field(None, gt=0)
 #     status: Optional[ReservationStatus] = None
 #     special_requests: Optional[str] = None
 #     table_id: Optional[int] = None
-
+"""
 # class ReviewUpdate(BaseModel):
 #     rating: Optional[int] = Field(None, ge=1, le=5)
 #     comment: Optional[str] = None
@@ -246,7 +246,7 @@
 #     class Config:
 #         from_attributes = True
 """
-# class ReviewResponse(ReviewBase):
+"""# class ReviewResponse(ReviewBase):
 #     review_id: int
 #     customer_id: int
 #     restaurant_id: int
@@ -255,7 +255,7 @@
 
 #     class Config:
 #         from_attributes = True
-
+"""
 # class RestaurantPhotoResponse(RestaurantPhotoBase):
 #     photo_id: int
 #     restaurant_id: int
@@ -264,12 +264,12 @@
 #     class Config:
 #         from_attributes = True
 
-'''# class OperatingHoursResponse(OperatingHoursBase):
+"""# class OperatingHoursResponse(OperatingHoursBase):
 #     hours_id: int
 #     restaurant_id: int
 
 #     class Config:
-#         from_attributes = True'''
+#         from_attributes = True"""
 
 """# class TableResponse(TableBase):
 #     table_id: int
@@ -285,7 +285,7 @@
 #     class Config:
 #         from_attributes = True
 
-# class ReservationResponse(ReservationBase):
+"""# class ReservationResponse(ReservationBase):
 #     reservation_id: int
 #     customer_id: int
 #     restaurant_id: int
@@ -297,7 +297,7 @@
 
 #     class Config:
 #         from_attributes = True
-
+"""
 """# class RestaurantResponse(RestaurantBase):
 #     restaurant_id: int
 #     manager_id: int
