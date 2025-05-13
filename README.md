@@ -2,6 +2,18 @@
 
 > A full-stack reservation platform with role-based UX for Customers, Business Owners, and Admins.
 
+Team Information
+
+Team Name: Xplorers
+
+| Team Members                            | Role                                      |
+|-----------------------------------------|-------------------------------------------|
+| **Purva Bansod**                        | Backend Developer                         |
+| **Priyanka Angad Jadhav**               | Backend Developer                         |
+| **Preetam Maske**                      | Frontend Developer                        |  
+| **Priyanka Ajit Mutha**                 | Frontend Developer                        |
+
+
 ## 📝 Project Overview
 A multi-role (Customer, BusinessOwner, Admin) booking system built with:
 - **Backend**: FastAPI + MySQL  
